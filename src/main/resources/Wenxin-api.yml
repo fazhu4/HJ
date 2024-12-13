@@ -1,0 +1,8 @@
+wenxin:
+  ERNIE-4.0-8K:
+    url: https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions_pro
+    method: POST
+    headers:
+      Content-Type: application/json
+    params:
+      access_token: 24.e4968f6ca1ca520a6491c9fe0e670554.2592000.1735803891.282335-116503835
