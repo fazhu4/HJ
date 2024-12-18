@@ -73,6 +73,9 @@ public class UserController {
                 if(register.getName()==null || register.getName()==""){
                     register.setName("用户"+System.currentTimeMillis()%1000000);
                 }
+                if(userMapper.findAccount(register.getAccount())){//查看账号是否重复
+                    return Result.error("账号重复啦");
+                }
                 userMapper.insertUser(register.getAvatar(), register.getName(), register.getAccount(), register.getPassword());
                 return success("注册成功",register);
             } else {
