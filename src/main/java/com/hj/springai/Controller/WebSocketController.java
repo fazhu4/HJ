@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 /**
  * @FileName WebSocketController
  * @Description
@@ -48,10 +50,13 @@ public class WebSocketController {
      * @param session
      */
     @OnMessage
-    public void onMsg(Session session, String msg)  {
+    public void onMsg(Session session, String msg) throws IOException {
         // 接收客户端发送的消息
-        log.info("WebSocket Client: {}", msg);
-        System.out.println( WenxinUtil.Wenxin(msg, session));
+//        log.info("WebSocket Client: {}", msg);
+//        System.out.println( WenxinUtil.Wenxin(msg, session));
+//        System.out.println(msg);
+//        log.info("WebSocket Client: {}", msg);
+        session.getBasicRemote().sendText(WenxinUtil.Wenxin(msg, session));
 
     }
 }
