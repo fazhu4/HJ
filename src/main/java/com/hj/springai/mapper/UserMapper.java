@@ -19,7 +19,7 @@ public interface UserMapper {
     Integer login(String account, String password);
 
     //根据id查询用户信息
-    @Select("select uid,avatar,name,account,status from user where uid =#{uid} ;")
+    @Select("select uid,account,password,status from user where uid =#{uid} ;")
     User selectUserById(int uid);
 
     //判断账号是否重复
@@ -31,8 +31,8 @@ public interface UserMapper {
     int userCount();
 
     //新增用户
-    @Insert("insert into user (avatar,name,account,password) values (#{avatar},#{name},#{account},#{password}) ")
-    void insertUser(String avatar, String name, String account, String password);
+    @Insert("insert into user (account,password,status) values (#{account},#{password},1) ")
+    void insertUser(String account, String password);
 
 
 

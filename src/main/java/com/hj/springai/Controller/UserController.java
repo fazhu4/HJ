@@ -62,21 +62,19 @@ public class UserController {
         }
     }
 
+    /**
+     * 用户注册
+     * @param register
+     * @return
+     */
     @PostMapping("/register")
     public Result register(@RequestBody Register register) {
         try {
             if ((register.getAccount() != null || register.getAccount() != "" )&& (register.getPassword()!=null || register.getPassword()!="")) {
-                if(register.getAvatar()==null || register.getAvatar()==""){
-                    String project_name=globalConfiguration.getProjectName();
-                    register.setAvatar("/"+project_name+"/img/avatar/0.jpg");
-                }
-                if(register.getName()==null || register.getName()==""){
-                    register.setName("用户"+System.currentTimeMillis()%1000000);
-                }
                 if(userMapper.findAccount(register.getAccount())){//查看账号是否重复
                     return Result.error("账号重复啦");
                 }
-                userMapper.insertUser(register.getAvatar(), register.getName(), register.getAccount(), register.getPassword());
+                userMapper.insertUser( register.getAccount(), register.getPassword());
                 return success("注册成功",register);
             } else {
                 return Result.error("账号密码不能留空");

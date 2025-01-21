@@ -13,8 +13,6 @@ import lombok.Data;
 
 @Data
 public class Register {
-    private String avatar;//用户头像
-    private String name;//用户姓名
     private String account;//用户账号
     private String password;//用户密码
 }

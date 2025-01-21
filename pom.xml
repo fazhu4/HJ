@@ -76,11 +76,11 @@
             <artifactId>qianfan</artifactId>
             <version>0.0.9</version>
         </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20210307</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.json</groupId>-->
+<!--            <artifactId>json</artifactId>-->
+<!--            <version>20210307</version>-->
+<!--        </dependency>-->
         <!-- 临时解析yaml的工具 -->
         <dependency>
             <groupId>org.yaml</groupId>
@@ -128,6 +128,9 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>3.0.3</version>
         </dependency>
+
+
+
 
 
 

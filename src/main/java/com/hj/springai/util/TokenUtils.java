@@ -41,7 +41,7 @@ public class TokenUtils {
         String id=String.valueOf(uid);
         return JWT.create()
                 .withAudience(id)//注入id
-                .withExpiresAt(DateUtil.offsetDay(DateUtil.date(), 7))//设置7天过期
+                .withExpiresAt(DateUtil.offsetDay(DateUtil.date(), 7))
                 .sign(Algorithm.HMAC256(pw));//注入加密密码
     }
 
@@ -53,7 +53,7 @@ public class TokenUtils {
     public static User getCurrentUser() {
         try {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-            String token = request.getHeader("token");
+            String token = request.getHeader("Authorization");
             if(StrUtil.isNotBlank(token)){
                 int uid =Integer.parseInt(JWT.decode(token).getAudience().get(0)) ;
                 User user= staticUserMapper.selectUserById(uid);
