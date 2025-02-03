@@ -1,6 +1,7 @@
 package com.hj.springai.Controller;
 
 import com.hj.springai.Service.CommunityService;
+import com.hj.springai.common.AuthAccess;
 import com.hj.springai.common.Result;
 import com.hj.springai.util.FileUtils;
 import com.hj.springai.util.TokenUtils;
@@ -27,17 +28,18 @@ public class CommunityController {
 
 
     //笔记上传
+    @AuthAccess
     @PostMapping("/noteUpload")
     public Result noteUpload(@Param("file") MultipartFile file) {
-        String msg = "success";
+        String msg;
         FileUtils fileUtils = new FileUtils();
-        String UPLOAD_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\";
+        String UPLOAD_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\information\\";
         try {
-            fileUtils.upLoadFile(msg, UPLOAD_DIR, file);
+            msg = fileUtils.upLoad(file,UPLOAD_DIR);
         } catch (Exception e) {
-            return Result.error("笔记上传失败");
+            return Result.error(e.getMessage());
         }
-        return Result.success("笔记上传成功");
+        return Result.success(msg);
     }
 
     //获取热门笔记

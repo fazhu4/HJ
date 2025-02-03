@@ -10,6 +10,8 @@ public class Active {
     String name; //活动名
     String content; //活动内容
     String img; //活动图片
+    int places; //名额
+    int remainderPlaces; //剩余名额
     Time signStartTime; //报名开始时间
     Time signEndTime; //报名结束时间
     Time StartTime; //开始时间
