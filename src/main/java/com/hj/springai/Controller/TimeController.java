@@ -53,13 +53,10 @@ public class TimeController {
         } catch (Exception e) {
             return Result.error("Token失效，请重新登录");
         }
-//        System.out.println("uid: " + uid);
         String jsonString = timeMapper.clockSelect(uid);
-//        System.out.println("jsonString: " + jsonString);
 
         String year = ymd.getYear(), month = ymd.getMonth();
         int day = Integer.valueOf(ymd.getDay());
-//        System.out.println("year: " + year + ", month: " + month + ", day: " + day);
 
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -94,10 +91,8 @@ public class TimeController {
                                 // 如果打卡记录已经存在，则不添加
                                 return Result.error("打卡记录已存在");
                             }
-                            // 如果"3"月已经存在，则添加新的打卡记录
                             monthData.get(month).add(day);
                         } else {
-                            // 如果"3"月不存在，则创建一个新的列表并添加打卡记录
                             monthData.put(month, new ArrayList<Integer>() {{
                                 add(day);
                             }});
@@ -121,20 +116,14 @@ public class TimeController {
             // 假设这里有一个方法getFirst()返回第一个元素
             YearMonthData firstElement = yearMonthDataList.get(0);
 
-            // 打印第一个元素的数据
-//            System.out.println("第一个元素的数据: " + firstElement.getData());
-
             String jsonTOStr = objectMapper.writeValueAsString(yearMonthDataList);
-//            System.out.println("jsonTOStr: " + jsonTOStr);
-
             timeMapper.clockUpdate(uid, jsonTOStr);
 
 
-            return null;
+            return Result.success("签到成功");
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
-        }
+            return Result.error("服务器错误");        }
     }
 
     /**

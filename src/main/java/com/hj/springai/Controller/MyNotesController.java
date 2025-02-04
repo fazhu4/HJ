@@ -53,8 +53,8 @@ public class MyNotesController {
     //删除笔记
     @GetMapping("/delete")
     public Result deleteMyNote(@Param("MNid")long MNid) {
-        //int uid = TokenUtils.getCurrentUser().getUid();
-        myNotesService.deleteMyNotes(MNid,1);
+        int uid = TokenUtils.getCurrentUser().getUid();
+        myNotesService.deleteMyNotes(MNid,uid);
         return Result.success();
     }
 

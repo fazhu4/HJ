@@ -37,7 +37,7 @@ public class JWTInterceptors implements HandlerInterceptor {
         }
 
         // 获取请求头中令牌
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
         if(StrUtil.isBlank(token)){
             throw new RuntimeException("令牌不能为空");
         }
