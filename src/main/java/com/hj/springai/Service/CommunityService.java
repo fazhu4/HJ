@@ -5,6 +5,8 @@ import com.hj.springai.mapper.CommunityMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Filename CommunityService
  * @author yrpyy
@@ -25,4 +27,6 @@ public class CommunityService {
     public int likeDecrease(int CNid){return communityMapper.LikeDecrease(CNid);}
     //根据社区笔记id返回封面，名字
     public CommunityNotes getCommunityNotes(int CNid){return communityMapper.getCommunityNotes(CNid);}
+    //返回热门笔记
+    public List<CommunityNotes> getHotNotes(int typeId){return communityMapper.getHotNotes(typeId);}
 }

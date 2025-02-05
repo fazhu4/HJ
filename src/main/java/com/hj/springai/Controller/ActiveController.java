@@ -54,7 +54,9 @@ public class ActiveController {
     public Result applicantActive(@Param("Aid")int Aid){
         try {
             if (activeService.getRemainderPlaces(Aid) > 0) {
+                int uid = TokenUtils.getCurrentUser().getUid();
                 activeService.updateRemainderPlacesByAid(Aid);
+                activeService.InsertActiveApplicant(Aid,uid);
                 return Result.success("报名成功");
             }else {
                 return Result.success("无名额了");

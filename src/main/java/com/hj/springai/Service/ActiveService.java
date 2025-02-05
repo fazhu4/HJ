@@ -23,4 +23,6 @@ public class ActiveService {
     public int getRemainderPlaces(int Aid){return activeMapper.getRemainderPlacesByAid(Aid);}
     //名额自减
     public void updateRemainderPlacesByAid(int Aid){activeMapper.updateRemainderPlacesByAid(Aid);}
+    //插入报名表
+    public void InsertActiveApplicant(int Aid,int uid){activeMapper.insertActiveApplicant(Aid,uid);}
 }

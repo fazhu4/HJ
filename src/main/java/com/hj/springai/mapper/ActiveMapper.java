@@ -29,4 +29,7 @@ public interface ActiveMapper {
     //名额自减
     @Update("update `active` set `remainder_places` -= 1")
     int updateRemainderPlacesByAid(int Aid);
+    //报名活动
+    @Insert("insert into `active_applicant`(`Aid`,`uid`) values (#{Aid},#{uid})")
+    int insertActiveApplicant(int Aid, int uid);
 }

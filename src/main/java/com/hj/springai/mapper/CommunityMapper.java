@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 /**
  * @FileName CommunityMapper
  * @author yrpyy
@@ -13,9 +15,9 @@ import org.apache.ibatis.annotations.Update;
  * **/
 @Mapper
 public interface CommunityMapper {
-    //
-//    @Select("select `CNid` from `community_notes` where like > #{};")
-//    int[] getCommunityNotesByLike(String like);
+    //获取热门笔记
+    @Select("select `CNid`,`img`,`name` from `community_notes` where `type_id` = #{typeId} order by `like` DESC;")
+    List<CommunityNotes> getHotNotes(int typeId);
     //喜欢笔记
     @Update("update `community_notes` set `uid` = #{uid},`CNid` = #{CNid};")
     int setLikeNote(int uid, int CNid);
