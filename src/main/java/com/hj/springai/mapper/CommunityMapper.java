@@ -25,12 +25,12 @@ public interface CommunityMapper {
     @Delete("delete from `community_notes` where `uid` = #{uid} and `CNid` = #{CNid};")
     int deleteLikeNote(int uid, int CNid);
     //喜欢自增
-    @Update("update `community_notes` set `like` += 1 where `CNid` = #{CNid};")
+    @Update("update `community_notes` set `like` = `like` + 1 where `CNid` = #{CNid};")
     int LikeIncrease(int CNid);
     //喜欢自减
-    @Update("update `community_notes` set `like` -= 1 where `CNid` = #{CNid};")
+    @Update("update `community_notes` set `like` = `like` + 1 where `CNid` = #{CNid};")
     int LikeDecrease(int CNid);
     //根据id返回封面，名字
-    @Select("select `img`,`note_name` form `my_notes` where `CNid` = #{CNid};")
+    @Select("select `img`,`name` form `coummunity_notes` where `CNid` = #{CNid};")
     CommunityNotes getCommunityNotes(int CNid);
 }
