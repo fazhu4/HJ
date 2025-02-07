@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 /**
  * @FileName CommunityMapper
  * @author yrpyy
@@ -13,9 +15,9 @@ import org.apache.ibatis.annotations.Update;
  * **/
 @Mapper
 public interface CommunityMapper {
-    //
-//    @Select("select `CNid` from `community_notes` where like > #{};")
-//    int[] getCommunityNotesByLike(String like);
+    //获取热门笔记
+    @Select("select `CNid`,`img`,`name` from `community_notes` where `type_id` = #{typeId} order by `like` DESC;")
+    List<CommunityNotes> getHotNotes(int typeId);
     //喜欢笔记
     @Update("update `community_notes` set `uid` = #{uid},`CNid` = #{CNid};")
     int setLikeNote(int uid, int CNid);
@@ -23,12 +25,12 @@ public interface CommunityMapper {
     @Delete("delete from `community_notes` where `uid` = #{uid} and `CNid` = #{CNid};")
     int deleteLikeNote(int uid, int CNid);
     //喜欢自增
-    @Update("update `community_notes` set `like` += 1 where `CNid` = #{CNid};")
+    @Update("update `community_notes` set `like` = `like` + 1 where `CNid` = #{CNid};")
     int LikeIncrease(int CNid);
     //喜欢自减
-    @Update("update `community_notes` set `like` -= 1 where `CNid` = #{CNid};")
+    @Update("update `community_notes` set `like` = `like` + 1 where `CNid` = #{CNid};")
     int LikeDecrease(int CNid);
     //根据id返回封面，名字
-    @Select("select `img`,`note_name` form `my_notes` where `CNid` = #{CNid};")
+    @Select("select `img`,`name` form `coummunity_notes` where `CNid` = #{CNid};")
     CommunityNotes getCommunityNotes(int CNid);
 }

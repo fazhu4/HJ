@@ -43,7 +43,15 @@ public class CommunityController {
     }
 
     //获取热门笔记
-    //@GetMapping("/")
+    @GetMapping("/hotNotes")
+    public Result getHotNotes(@Param("typeId")int typeId) {
+        try {
+            communityService.getHotNotes(typeId);
+            return Result.success();
+        } catch (Exception e) {
+            return Result.error(e.getMessage());
+        }
+    }
 
     //获取笔记列表
     @GetMapping("/getList")
