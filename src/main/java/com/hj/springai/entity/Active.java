@@ -12,10 +12,10 @@ public class Active {
     String img; //活动图片
     int places; //名额
     int remainderPlaces; //剩余名额
-    Time signStartTime; //报名开始时间
-    Time signEndTime; //报名结束时间
-    Time StartTime; //开始时间
-    Time EndTime; //结束时间
+    String signStartTime; //报名开始时间
+    String signEndTime; //报名结束时间
+    String StartTime; //开始时间
+    String EndTime; //结束时间
     String position; //位置
     int status; //状态
 }

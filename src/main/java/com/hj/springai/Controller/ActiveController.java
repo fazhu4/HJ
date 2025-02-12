@@ -9,6 +9,7 @@ import com.hj.springai.util.TokenUtils;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class ActiveController {
     ActiveService activeService;
 
     @GetMapping("/creatActive")
-    public Result creatActive(@Param("active") Active active) {
+    public Result creatActive(@RequestBody Active active) {
         try {
             activeService.creatActive(active.getName(),active.getContent(),active.getImg(),active.getPlaces(),active.getSignStartTime(),active.getSignEndTime(),active.getStartTime(),active.getEndTime(),active.getPosition());
             return Result.success();
