@@ -13,7 +13,7 @@ public class ActiveService {
     @Resource
     ActiveMapper activeMapper;
     //创建活动
-    public void creatActive(String name, String content, String img, int places,Time sign_start_time, Time sign_end_time, Time start_time, Time end_time, String position) {activeMapper.creatActive(name,content,img,places,sign_start_time,sign_end_time,start_time,end_time,position);}
+    public void creatActive(String name, String content, String img, int places,String sign_start_time, String sign_end_time, String start_time, String end_time, String position) {activeMapper.creatActive(name,content,img,places,sign_start_time,sign_end_time,start_time,end_time,position);}
     //获取未开始的活动列表
     public List<Active> getActiveList() {return activeMapper.getActiveNoStart();}
     //获取已开始的活动列表

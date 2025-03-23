@@ -44,7 +44,6 @@ public class TimeController {
      *
      * @return
      */
-    @AuthAccess
     @PostMapping("/time/clock/attendance")
     public Result attendance(@RequestBody YMD ymd) {
         int uid = 0;
@@ -62,8 +61,7 @@ public class TimeController {
             ObjectMapper objectMapper = new ObjectMapper();
             // 将JSON字符串转换为List<YearMonthData>对象
             List<YearMonthData> yearMonthDataList = objectMapper.readValue(jsonString, objectMapper.getTypeFactory().constructCollectionType(List.class, YearMonthData.class));
-            // 打印解析后的对象列表
-//            System.out.println("解析后的对象列表: " + yearMonthDataList);
+
 
             boolean yearExists = true;
             if (yearMonthDataList.isEmpty()) {

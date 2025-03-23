@@ -9,11 +9,13 @@ import com.hj.springai.util.TokenUtils;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController("/active")
+@RestController
+@RequestMapping("/active")
 public class ActiveController {
     @Resource
     ActivityTaskExecutor activityTaskExecutor;
@@ -41,7 +43,7 @@ public class ActiveController {
     }
 
     @GetMapping("/getActiveInfo")
-    public Result getActiveInfo(@Param("Aid")int Aid) {
+    public Result getActiveInfo(@Param("Aid")Integer Aid) {
         try {
             Active active = activeService.getActiveByAid(Aid);
             return Result.success(active);
@@ -62,6 +64,7 @@ public class ActiveController {
                 return Result.success("无名额了");
             }
         } catch (Exception e) {
+            e.getMessage();
             return Result.error(e.getMessage());
         }
     }

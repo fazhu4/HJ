@@ -19,7 +19,7 @@ public interface ActiveMapper {
     List<Active> getActiveStart();
     //创建活动
     @Insert("insert into `active`(`name`,`content`,`img`,`places`,`remainder_places`,`sign_start_time`,`sign_end_time`,`start_time`,`end_time`,`position`,`status`) values (#{name},#{content},#{img},#{places},#{places},#{sign_start_time},#{sign_end_time},#{start_time},#{end_time},#{positon},0)")
-    int creatActive(String name, String content, String img,int places,Time sign_start_time, Time sign_end_time, Time start_time, Time end_time, String position);
+    int creatActive(String name, String content, String img,int places,String sign_start_time, String sign_end_time, String start_time, String end_time, String position);
     //获取活动详细信息
     @Select("select `name`,`content`,`img`,`sign_start_time`,`sign_end_time`,`start_time`,`end_time`,`position` from `active` where `Aid` = #{Aid}")
     Active getActiveByAid(int Aid);
