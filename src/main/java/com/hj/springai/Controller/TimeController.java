@@ -20,10 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @FileName TimeController
@@ -45,83 +43,91 @@ public class TimeController {
      * @return
      */
     @PostMapping("/time/clock/attendance")
-    public Result attendance(@RequestBody YMD ymd) {
+    public Result attendance() {
         int uid = 0;
         try {
             uid = TokenUtils.getCurrentUser().getUid();
         } catch (Exception e) {
             return Result.error("Token失效，请重新登录");
         }
-        String jsonString = timeMapper.clockSelect(uid);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
 
-        String year = ymd.getYear(), month = ymd.getMonth();
-        int day = Integer.valueOf(ymd.getDay());
+        if(timeMapper.selectDateNUm(date)>0){
+            return Result.error("今日已签到");
+        }
+        timeMapper.clockInsert(uid, date);
+        return Result.success("签到成功");
 
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            // 将JSON字符串转换为List<YearMonthData>对象
-            List<YearMonthData> yearMonthDataList = objectMapper.readValue(jsonString, objectMapper.getTypeFactory().constructCollectionType(List.class, YearMonthData.class));
-
-
-            boolean yearExists = true;
-            if (yearMonthDataList.isEmpty()) {
-                yearExists = false;
-                //如果为空，则创建一个新的YearMonthData对象并添加到列表中
-                YearMonthData newYearMonthData = new YearMonthData();
-                Map<String, Map<String, List<Integer>>> data = new HashMap<>();
-                data.put(year, new HashMap<>() {{
-                    put(month, new ArrayList<>() {{
-                        add(day);
-                    }});
-                }});
-                newYearMonthData.setData(data);
-                yearMonthDataList.add(newYearMonthData);
-            } else {
-
-                //添加属性
-                for (YearMonthData yearMonthData : yearMonthDataList) {
-                    Map<String, Map<String, List<Integer>>> data = yearMonthData.getData();
-                    if (data.containsKey(year)) {
-                        yearExists = false;
-                        Map<String, List<Integer>> monthData = data.get(year);
-                        if (monthData.containsKey(month)) {
-                            if (monthData.get(month).contains(day)) {
-                                // 如果打卡记录已经存在，则不添加
-                                return Result.error("打卡记录已存在");
-                            }
-                            monthData.get(month).add(day);
-                        } else {
-                            monthData.put(month, new ArrayList<Integer>() {{
-                                add(day);
-                            }});
-                        }
-                        break;  // 如果只需要添加一次，可以退出循环
-                    }
-                }
-            }
-            if (yearExists) {
-                // 如果年份不存在，则创建一个新的YearMonthData对象并添加到列表中
-                YearMonthData newYearMonthData = new YearMonthData();
-                Map<String, Map<String, List<Integer>>> data = new HashMap<>();
-                data.put(year, new HashMap<>() {{
-                    put(month, new ArrayList<>() {{
-                        add(day);
-                    }});
-                }});
-                newYearMonthData.setData(data);
-                yearMonthDataList.add(newYearMonthData);
-            }
-            // 假设这里有一个方法getFirst()返回第一个元素
-            YearMonthData firstElement = yearMonthDataList.get(0);
-
-            String jsonTOStr = objectMapper.writeValueAsString(yearMonthDataList);
-            timeMapper.clockUpdate(uid, jsonTOStr);
-
-
-            return Result.success("签到成功");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Result.error("服务器错误");        }
+//        String jsonString = timeMapper.clockSelect(uid);
+//
+//        String year = ymd.getYear(), month = ymd.getMonth();
+//        int day = Integer.valueOf(ymd.getDay());
+//
+//        try {
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            // 将JSON字符串转换为List<YearMonthData>对象
+//            List<YearMonthData> yearMonthDataList = objectMapper.readValue(jsonString, objectMapper.getTypeFactory().constructCollectionType(List.class, YearMonthData.class));
+//
+//
+//            boolean yearExists = true;
+//            if (yearMonthDataList.isEmpty()) {
+//                yearExists = false;
+//                //如果为空，则创建一个新的YearMonthData对象并添加到列表中
+//                YearMonthData newYearMonthData = new YearMonthData();
+//                Map<String, Map<String, List<Integer>>> data = new HashMap<>();
+//                data.put(year, new HashMap<>() {{
+//                    put(month, new ArrayList<>() {{
+//                        add(day);
+//                    }});
+//                }});
+//                newYearMonthData.setData(data);
+//                yearMonthDataList.add(newYearMonthData);
+//            } else {
+//
+//                //添加属性
+//                for (YearMonthData yearMonthData : yearMonthDataList) {
+//                    Map<String, Map<String, List<Integer>>> data = yearMonthData.getData();
+//                    if (data.containsKey(year)) {
+//                        yearExists = false;
+//                        Map<String, List<Integer>> monthData = data.get(year);
+//                        if (monthData.containsKey(month)) {
+//                            if (monthData.get(month).contains(day)) {
+//                                // 如果打卡记录已经存在，则不添加
+//                                return Result.error("打卡记录已存在");
+//                            }
+//                            monthData.get(month).add(day);
+//                        } else {
+//                            monthData.put(month, new ArrayList<Integer>() {{
+//                                add(day);
+//                            }});
+//                        }
+//                        break;  // 如果只需要添加一次，可以退出循环
+//                    }
+//                }
+//            }
+//            if (yearExists) {
+//                // 如果年份不存在，则创建一个新的YearMonthData对象并添加到列表中
+//                YearMonthData newYearMonthData = new YearMonthData();
+//                Map<String, Map<String, List<Integer>>> data = new HashMap<>();
+//                data.put(year, new HashMap<>() {{
+//                    put(month, new ArrayList<>() {{
+//                        add(day);
+//                    }});
+//                }});
+//                newYearMonthData.setData(data);
+//                yearMonthDataList.add(newYearMonthData);
+//            }
+//            // 假设这里有一个方法getFirst()返回第一个元素
+//            YearMonthData firstElement = yearMonthDataList.get(0);
+//
+//            String jsonTOStr = objectMapper.writeValueAsString(yearMonthDataList);
+//            timeMapper.clockUpdate(uid, jsonTOStr);
+//            return Result.success("签到成功");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return Result.error("服务器错误");
+//            }
     }
 
     /**

@@ -1,8 +1,8 @@
 wenxin:
-  ERNIE-4.0-8K:
-    url: https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions_pro
+  ERNIE-Lite-Pro-128K:
+    url: https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/ernie-lite-pro-128k
     method: POST
     headers:
       Content-Type: application/json
     params:
-      access_token: 24.fd4c778264db50be40b0cd8112fa3a06.2592000.1741356236.282335-117274223
+      access_token: 24.6f22bd03cb526b86b137c15c7f0030ee.2592000.1745574223.282335-116503835

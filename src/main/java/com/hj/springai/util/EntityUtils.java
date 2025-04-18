@@ -1,5 +1,6 @@
 package com.hj.springai.util;
 
+import com.fasterxml.jackson.databind.JsonSerializer;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -29,9 +30,9 @@ public class EntityUtils {
             // 设置字段可访问（如果需要访问私有字段）
             field.setAccessible(true);
             try {
+
                 // 获取字段的值
                 Object value = field.get(obj);
-                System.out.println(value);
                 if (value == "" || value == null) {
                     return false;
                 }

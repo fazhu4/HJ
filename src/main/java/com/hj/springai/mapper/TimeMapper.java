@@ -1,5 +1,6 @@
 package com.hj.springai.mapper;
 
+import com.hj.springai.entity.Date;
 import com.hj.springai.entity.Note_type_time;
 import com.hj.springai.entity.Todo_list;
 import com.hj.springai.entity.outside.Note_type;
@@ -7,6 +8,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+
+import java.util.ArrayList;
 
 /**
  * @FileName TimeMapper
@@ -20,8 +23,14 @@ public interface TimeMapper {
     /* 签 到 类 */
 
     //查询用户签到表
-    @Select("select days from clockin where uid=#{uid}")
-    String clockSelect(int uid);
+    @Select("select date from clockin where uid=#{uid}")
+    ArrayList<Date> clockSelect(int uid);
+
+    @Insert("INSERT INTO clockin (uid,date) VALUES(#{uid}, #{days})")
+    void clockInsert(int uid,String days);
+
+    @Select("select count(*) from clockin where date=#{date}")
+    int selectDateNUm(String date);
 
     //更新用户签到表
     @Update("UPDATE clockin SET days=#{days} WHERE uid=#{uid} ")

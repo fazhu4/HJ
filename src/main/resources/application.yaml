@@ -22,7 +22,7 @@ mybatis:
 
  # 自定义配置
 wenxin:
-  moxing: ERNIE-4.0-8K
+  moxing: ERNIE-Lite-Pro-128K
 
 custom-config:
   project:
